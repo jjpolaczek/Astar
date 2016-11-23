@@ -1,0 +1,20 @@
+﻿JF.P.3. Nawigator
+Napisać program znajdujący najkrótszą drogę przy użyciu algorytmu A*, w wygenerowanym
+labiryncie o wymiarach n x n, gdzie n jest zadawane przez użytkownika. Wybierany jest przez
+użytkownika, poprzez wskazanie myszką, zarówno punkt startowy, jak i punkt docelowy.
+Interfejs. Umożliwiający poniższe zadanie i wyświetlający kolejne etapy przeszukiwania.
+
+Założenia - Labirynt i algorytm A*
+1. Ściany labiryntu są reprezentowane jako przestrzenie między polami.
+3. Labirynt reprezentowany za pomocą grafu. W węźle przechowywana informacja o położeniu za pomocą koordynatów X i Y, oraz o sąsiedztwie za pomocą listy wskaźników na sąsiadów.
+5. Z danego pola można się poruszyć tylko w 4 kierunkach (lewo, prawo, góra, dół).
+4. Z każdego punktu w labiryncie da się dojść do wyjścia.
+5. Funkcja heurystyczna obliczana jako odległość punktu w labiryncie od punktu wyjścia za pomocą równania: |X.wyjścia - X.dane| + |Y.wyjścia - Y.dane|.
+6. Wymiary labiryntu zadane jako dynamiczny parametr n na początku działania programu.
+3.
+
+Założenia interfejs użytkownika:
+1. Wizualizacja całego labiryntu, ścian, pól początku i końca oraz naniesienie na pola wartości funkcji heurystycznej i przebytej drogi w formie tekstowej
+2. Możliwość realizacji algorytmu krok po kroku w kolejności - wskazanie kolejnego elementu - przejście, wskazanie kolejnego elementu, przejście itp.
+3. Graficzna wizualizacja najkrótszej ścieżki po określeniu optymalnej drogi.
+4. Możliwość zapisu utworzonego labiryntu w formie pliku.
