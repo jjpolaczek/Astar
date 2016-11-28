@@ -13,6 +13,8 @@ void Display::Init()
         _walls[i].setRotation(90.0 * i);
     }
 
+    //
+
 
 }
 void Display::Draw()
@@ -25,6 +27,7 @@ void Display::Draw()
     background.setFillColor(sf::Color(255,255,255));
     _window->clear();
      _window->draw(background);
+     DrawGrid();
      DrawWalls();
     _window->display();
 
@@ -63,19 +66,41 @@ void Display::Draw()
 }
 void Display::DrawWalls()
 {
-
-    sf::CircleShape shape((float) TILE_SIZE / 8);
+    Node *tmp;
     for(int i = 0; i < _maze->getSize(); ++i)
     {
         for(int j = 0; j < _maze->getSize(); ++j)
         {
-            shape.setFillColor(sf::Color::Green);
-            shape.setOrigin(sf::Vector2f(TILE_SIZE/8.0, TILE_SIZE/8.0));
-            shape.setPosition(GetCenter(i,j));
-            _walls[_test].setPosition(GetCenter(i,j));
-            _window->draw(shape);
-            if(1)
-                _window->draw(_walls[_test]);
+            tmp = _maze->getNode(i,j);
+            for(int w = 0; w < 4; ++w)
+            {
+                if(tmp->next[w] == nullptr)
+                {
+                    _walls[w].setPosition(GetCenter(i,j));
+                    _window->draw(_walls[w]);
+                }
+            }
         }
     }
+}
+void Display::DrawGrid()
+{
+    for(int i = 0; i < _maze->getSize(); ++i)
+    {
+        sf::Vertex linev[] =
+        {
+            sf::Vertex(sf::Vector2f(i * TILE_SIZE, 0)),
+            sf::Vertex(sf::Vector2f(i * TILE_SIZE, TILE_SIZE * _maze->getSize()))
+        };
+        linev[0].color = linev[1].color = sf::Color::Cyan;
+        sf::Vertex lineh[] =
+        {
+            sf::Vertex(sf::Vector2f(0, i * TILE_SIZE)),
+            sf::Vertex(sf::Vector2f(TILE_SIZE * _maze->getSize(),i * TILE_SIZE))
+        };
+        lineh[0].color = lineh[1].color = sf::Color::Cyan;
+        _window->draw(linev,2,sf::Lines);
+        _window->draw(lineh,2,sf::Lines);
+    }
+
 }

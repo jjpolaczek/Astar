@@ -45,6 +45,7 @@ private:
     }
 
     void DrawWalls();
+    void DrawGrid();
     sf::RenderWindow *_window;
     sf::RectangleShape _walls[4];
     Maze *_maze;

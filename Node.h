@@ -1,19 +1,21 @@
 #ifndef NODE_H
 #define NODE_H
 
+enum {
+    Left,
+    Up,
+    Right,
+    Down
+}Side;
 
 class Node
 {
     public:
     Node():
-        wLeft(0),
-        wRight(0),
-        wUp(0),
-        wDown(0)
+        next{nullptr,nullptr,nullptr,nullptr}
     {
 
     }
-
-    bool wLeft,wRight,wUp,wDown;
+    Node *next[4];
 };
 #endif

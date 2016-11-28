@@ -2,7 +2,14 @@
 #define MAZE_H
 
 #include "Node.h"
+#include <stdexcept>
 
+// Coordinate system:
+//  O------->
+//  |      x
+//  |
+//  |y
+// \ /
 class Maze
 {
 private:
@@ -17,6 +24,7 @@ public:
     {
         return _width;
     }
+    void clear();
 
 	void generateLabirynth();	//uses a Depth-First Search method to generate the connections
 	 
