@@ -1,28 +1,28 @@
-#include <Graph.h>
+#include "Maze.h"
 
 //create a graph
-Graph::Graph(int n) : width{n}
+Maze::Maze(int n) : _width(n)
 {
-	nodes = new Node*[n*n];
+    _nodes = new Node*[n*n];
 	for(int i = 0; i < n; ++i)
 		for(int j = 0; j < n; ++j)
-			nodes[i*n + j] = new Node(i, j);
+            _nodes[i*n + j] = new Node(/*i, j*/);
 }
 
 //clean up
-Graph::~Graph()
+Maze::~Maze()
 {
-	for(int i = 0; i < width*width; ++i)
-		delete nodes[i];
-	delete[] nodes;
+    for(int i = 0; i < _width*_width; ++i)
+        delete _nodes[i];
+    delete[] _nodes;
 }
 
-Node* Graph::getNode(int x, int y)
+Node* Maze::getNode(int x, int y)
 {
-	return nodes[x*width + y];
+    return _nodes[x*_width + y];
 }
 
-void Graph::generateLabirynth()
+void Maze::generateLabirynth()
 {
 //todo fill out later
 }

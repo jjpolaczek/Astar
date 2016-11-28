@@ -1,15 +1,25 @@
+#ifndef MAZE_H
+#define MAZE_H
+
 #include "Node.h"
 
-class Graph
+class Maze
 {
 private:
-	Node** nodes; //array of nodes
-	int width; //is equal to height
+    Node** _nodes; //array of nodes
+    int _width; //is equal to height
 public:
-	Graph(int n) : width{n};
-	~Graph();
+
+    Maze(int n);
+    ~Maze();
 	Node* getNode(int x, int y);
+    int getSize()
+    {
+        return _width;
+    }
+
 	void generateLabirynth();	//uses a Depth-First Search method to generate the connections
 	 
 
-}
+};
+#endif

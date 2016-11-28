@@ -1,12 +1,14 @@
 #include "Display.h"
+#include "Maze.h"
 
 int main()
 {
-    MazeVisualizer maze(15);
-    maze.Init();
-    while (!maze.IsExit())
+    Maze maze(15);
+    Display display(&maze);
+    display.Init();
+    while (!display.IsExit())
     {
-        maze.Draw();
+        display.Draw();
     }
 	return 0;
 }
