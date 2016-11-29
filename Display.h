@@ -7,8 +7,8 @@
 #include "Maze.h"
 
 
-#define TILE_SIZE 40 //In pixels
-#define WALL_WIDTH 4.0
+#define TILE_SIZE 60 //In pixels
+#define WALL_WIDTH 8.0
 enum
 {
     WallLeft,
@@ -46,12 +46,12 @@ private:
 
     void DrawWalls();
     void DrawGrid();
+    void DrawTiles();
+    void DrawText();
     sf::RenderWindow *_window;
     sf::RectangleShape _walls[4];
     Maze *_maze;
 
-
-    int _test = 0;
 };
 
 #endif // DISPLAY_H

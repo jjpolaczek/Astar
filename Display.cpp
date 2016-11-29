@@ -8,13 +8,9 @@ void Display::Init()
     for(int i = 0; i < 4; ++i)
     {
         _walls[i] = sf::RectangleShape(sf::Vector2f(WALL_WIDTH,TILE_SIZE));
-        _walls[i].setFillColor(sf::Color::Red);
         _walls[i].setOrigin(sf::Vector2f(TILE_SIZE / 2.0 + WALL_WIDTH / 2.0, TILE_SIZE/2.0));
         _walls[i].setRotation(90.0 * i);
     }
-
-    //
-
 
 }
 void Display::Draw()
@@ -24,11 +20,14 @@ void Display::Draw()
 
     sf::RectangleShape background(sf::Vector2f(_maze->getSize() * TILE_SIZE, _maze->getSize() * TILE_SIZE));
     background.setOrigin(sf::Vector2f(0.0,0.0));
+
     background.setFillColor(sf::Color(255,255,255));
     _window->clear();
      _window->draw(background);
+     DrawTiles();
      DrawGrid();
      DrawWalls();
+     DrawText();
     _window->display();
 
     sf::Event event;
@@ -42,18 +41,9 @@ void Display::Draw()
             case sf::Event::KeyPressed:
             switch(event.key.code)
             {
-                case sf::Keyboard::U:
-                _test = WallUp;
-                break;
-                case sf::Keyboard::D:
-                _test = WallDown;
-                break;
-                case sf::Keyboard::L:
-                _test = WallLeft;
-                break;
-                case sf::Keyboard::R:
-                _test = WallRight;
-                break;
+               // case sf::Keyboard::U:
+               // _test = WallUp;
+              //  break;
                 default:
                 break;
 
@@ -64,9 +54,45 @@ void Display::Draw()
         }
     }
 }
+void Display::DrawTiles()
+{
+
+    sf::RectangleShape tile(sf::Vector2f(TILE_SIZE,TILE_SIZE));
+    sf::Texture txtFloor;
+    if(!txtFloor.loadFromFile("resources/floor2.png"))
+    {
+        throw std::runtime_error("Cannot load texture floor.jpg");
+    }
+    txtFloor.setRepeated(true);
+    txtFloor.setSmooth(true);
+    tile.setTexture(&txtFloor);
+    tile.setOrigin(sf::Vector2f((TILE_SIZE)/2.0, (TILE_SIZE)/2.0));
+    //background.setTextureRect(sf::IntRect(0,0,50000,50000));
+    //background.setTexture(&txtFloor);
+    for(int i = 0; i < _maze->getSize(); ++i)
+    {
+        for(int j = 0; j < _maze->getSize(); ++j)
+        {
+            tile.setPosition(GetCenter(i,j));
+            //Place for logic like changing the color, for now a sample texture//
+            _window->draw(tile);
+        }
+    }
+}
+
 void Display::DrawWalls()
 {
     Node *tmp;
+    sf::Texture txtWall;
+    if(!txtWall.loadFromFile("resources/wall.png"))
+    {
+        throw std::runtime_error("Cannot load texture wall.png");
+    }
+    for(int i = 0; i < 4; ++i)
+    {
+        _walls[i].setTexture(&txtWall);
+        _walls[i].setTextureRect(sf::IntRect(10,10,500,500));
+    }
     for(int i = 0; i < _maze->getSize(); ++i)
     {
         for(int j = 0; j < _maze->getSize(); ++j)
@@ -76,6 +102,7 @@ void Display::DrawWalls()
             {
                 if(tmp->next[w] == nullptr)
                 {
+                    //_walls[w].setTexture(&txtWall);
                     _walls[w].setPosition(GetCenter(i,j));
                     _window->draw(_walls[w]);
                 }
@@ -102,5 +129,9 @@ void Display::DrawGrid()
         _window->draw(linev,2,sf::Lines);
         _window->draw(lineh,2,sf::Lines);
     }
+
+}
+void Display::DrawText()
+{
 
 }
