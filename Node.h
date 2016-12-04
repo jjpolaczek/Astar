@@ -1,12 +1,12 @@
 #ifndef NODE_H
 #define NODE_H
 
-enum {
+enum Side {
     Left,
     Up,
     Right,
     Down
-}Side;
+};
 
 class Node
 {
@@ -17,5 +17,6 @@ class Node
 
     }
     Node *next[4];
+	bool isDisconnected() {return !(next[0] || next[1] || next[2] || next[3]);}
 };
 #endif
