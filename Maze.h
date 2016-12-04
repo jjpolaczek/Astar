@@ -20,7 +20,7 @@ private:
     int _width; //is equal to height
 
 	bool isValidSide(Side side, int x, int y);
-	static void randomizeOrder(Side* sides, std::minstd_rand0);
+	static void randomizeOrder(Side* sides, std::minstd_rand0*);
 public:
 
     Maze(int n);

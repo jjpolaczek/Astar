@@ -17,6 +17,6 @@ class Node
 
     }
     Node *next[4];
-	bool isDisconnected() {return !(next[0] || next[1] || next[2] || next[3]);}
+	bool isDisconnected() { return next[0] == nullptr && next[1] == nullptr && next[2] == nullptr && next[3] == nullptr;}
 };
 #endif
