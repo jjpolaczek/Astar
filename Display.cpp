@@ -103,7 +103,7 @@ void Display::DrawWalls()
     sf::Texture txtWall;
     if(!txtWall.loadFromFile("resources/wall.png"))
     {
-        throw std::runtime_error("Cannot load texture wall.png");
+        throw std::runtime_error("Cannot load wall texture");
     }
     for(int i = 0; i < 4; ++i)
     {
@@ -150,5 +150,61 @@ void Display::DrawGrid()
 }
 void Display::DrawText()
 {
+    sf::Font font;
+    sf::Text gCost, hCost, sum;
+    std::ostringstream oss;
+    gCost.setFont(font);
+    hCost.setFont(font);
+    sum.setFont(font);
+    gCost.setCharacterSize(TILE_SIZE / 5);
+    hCost.setCharacterSize(TILE_SIZE / 5);
+    sum.setCharacterSize(TILE_SIZE/3);
+    gCost.setColor(sf::Color::Black);
+    hCost.setColor(sf::Color::Black);
+    sum.setColor(sf::Color::Black);
 
+    if(!font.loadFromFile("resources/arial-black.ttf"))
+    {
+        throw std::runtime_error("Cannot load text font arial-black.ttf");
+    }
+    for(int i = 0; i < _maze->getSize(); ++i)
+    {
+        for(int j = 0; j < _maze->getSize(); ++j)
+        {
+            Node *tmp = _maze->getNode(i,j);
+            if(tmp->color != Node::NONE)
+            {
+                oss.str(std::string());
+                oss.clear();
+                //GCOST - top left corner//
+                oss<<tmp->gCost;
+                gCost.setString(oss.str());
+                sf::FloatRect textRect = gCost.getLocalBounds();
+                gCost.setOrigin(textRect.left + textRect.width/2.0f,
+                               textRect.top  + textRect.height/2.0f);
+                gCost.setPosition(GetCenter(i,j) - sf::Vector2f((float)TILE_SIZE / 4.0, (float)TILE_SIZE / 3.5));
+                oss.str(std::string());
+                //HCOST - top right corner//
+                oss<<tmp->hCost;
+                hCost.setString(oss.str());
+                textRect = hCost.getLocalBounds();
+                hCost.setOrigin(textRect.left + textRect.width/2.0f,
+                               textRect.top  + textRect.height/2.0f);
+                hCost.setPosition(GetCenter(i,j) - sf::Vector2f((float)-TILE_SIZE / 4.0, (float)TILE_SIZE / 3.5));
+                oss.str(std::string());
+                //SUM//
+                oss<<(tmp->gCost + tmp->hCost);
+                sum.setString(oss.str());
+                textRect = sum.getLocalBounds();
+                sum.setOrigin(textRect.left + textRect.width/2.0f,
+                               textRect.top  + textRect.height/2.0f);
+                sum.setPosition(GetCenter(i,j) - sf::Vector2f(0.0, (float)-TILE_SIZE / 8.0));
+                oss.str(std::string());
+
+                _window->draw(gCost);
+                _window->draw(hCost);
+                _window->draw(sum);
+            }
+        }
+    }
 }

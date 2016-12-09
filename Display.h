@@ -4,6 +4,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <exception>
+#include <sstream>
+#include <string>
 #include "Maze.h"
 
 
