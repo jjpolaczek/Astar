@@ -58,8 +58,9 @@ void Display::DrawTiles()
 {
     //sf::Sprite tileSprite();
     sf::RectangleShape tile(sf::Vector2f(TILE_SIZE,TILE_SIZE));
-    sf::Texture txtFloor, txtFloorRed, txtFloorGreen;
-    if(!txtFloor.loadFromFile("resources/floor.png") || !txtFloorRed.loadFromFile("resources/floor_red.png") || !txtFloorGreen.loadFromFile("resources/floor_green.png"))
+    sf::Texture txtFloor, txtFloorRed, txtFloorGreen, txtFloorBlue;
+    if(!txtFloor.loadFromFile("resources/floor.png") || !txtFloorRed.loadFromFile("resources/floor_red.png")
+            || !txtFloorGreen.loadFromFile("resources/floor_green.png")|| !txtFloorBlue.loadFromFile("resources/floor_blue.png"))
     {
         throw std::runtime_error("Cannot load texture floor.jpg");
     }
@@ -83,6 +84,9 @@ void Display::DrawTiles()
 
                 case Node::RED:
                     tile.setTexture(&txtFloorRed);
+                break;
+                case Node::BLUE:
+                    tile.setTexture(&txtFloorBlue);
                 break;
 
                 default:
@@ -172,7 +176,7 @@ void Display::DrawText()
         for(int j = 0; j < _maze->getSize(); ++j)
         {
             Node *tmp = _maze->getNode(i,j);
-            if(tmp->color != Node::NONE)
+            if(tmp->color != Node::NONE && tmp->color != Node::BLUE)
             {
                 oss.str(std::string());
                 oss.clear();

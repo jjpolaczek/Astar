@@ -1,5 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
+#include <random>
 enum Side {
     Left,
     Up,
@@ -14,14 +15,15 @@ class Node
     {
         NONE,
         GREEN,
-        RED
+        RED,
+        BLUE
     };
 
     Node():
         next{nullptr,nullptr,nullptr,nullptr},
-        color(0),
-        gCost(0),
-        hCost(0)
+        color(rand()%4),
+        gCost(rand()%100),
+        hCost(rand()%100)
     {
 
     }
