@@ -7,8 +7,8 @@ void Display::Init()
     _window->setFramerateLimit(30);
     for(int i = 0; i < 4; ++i)
     {
-        _walls[i] = sf::RectangleShape(sf::Vector2f(WALL_WIDTH,TILE_SIZE));
-        _walls[i].setOrigin(sf::Vector2f(TILE_SIZE / 2.0 + WALL_WIDTH / 2.0, TILE_SIZE/2.0));
+        _walls[i] = sf::RectangleShape(sf::Vector2f(WALL_WIDTH,TILE_SIZE + WALL_WIDTH));
+        _walls[i].setOrigin(sf::Vector2f(TILE_SIZE / 2.0 + WALL_WIDTH / 2.0, (TILE_SIZE + WALL_WIDTH)/2.0));
         _walls[i].setRotation(90.0 * i);
     }
 
@@ -56,15 +56,13 @@ void Display::Draw()
 }
 void Display::DrawTiles()
 {
-
+    //sf::Sprite tileSprite();
     sf::RectangleShape tile(sf::Vector2f(TILE_SIZE,TILE_SIZE));
-    sf::Texture txtFloor;
-    if(!txtFloor.loadFromFile("resources/floor2.png"))
+    sf::Texture txtFloor, txtFloorRed, txtFloorGreen;
+    if(!txtFloor.loadFromFile("resources/floor2.png") || !txtFloorRed.loadFromFile("resources/floor_red.png") || !txtFloorGreen.loadFromFile("resources/floor_green.png"))
     {
         throw std::runtime_error("Cannot load texture floor.jpg");
     }
-    txtFloor.setRepeated(true);
-    txtFloor.setSmooth(true);
     tile.setTexture(&txtFloor);
     tile.setOrigin(sf::Vector2f((TILE_SIZE)/2.0, (TILE_SIZE)/2.0));
     //background.setTextureRect(sf::IntRect(0,0,50000,50000));
@@ -73,6 +71,25 @@ void Display::DrawTiles()
     {
         for(int j = 0; j < _maze->getSize(); ++j)
         {
+            switch(_maze->getNode(i,j)->color)
+            {
+                case Node::NONE:
+                    tile.setTexture(&txtFloor);
+                break;
+
+                case Node::GREEN:
+                    tile.setTexture(&txtFloorGreen);
+                break;
+
+                case Node::RED:
+                    tile.setTexture(&txtFloorRed);
+                break;
+
+                default:
+                    tile.setTexture(&txtFloor);
+                break;
+            }
+
             tile.setPosition(GetCenter(i,j));
             //Place for logic like changing the color, for now a sample texture//
             _window->draw(tile);
