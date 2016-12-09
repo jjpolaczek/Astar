@@ -59,7 +59,7 @@ void Display::DrawTiles()
     //sf::Sprite tileSprite();
     sf::RectangleShape tile(sf::Vector2f(TILE_SIZE,TILE_SIZE));
     sf::Texture txtFloor, txtFloorRed, txtFloorGreen;
-    if(!txtFloor.loadFromFile("resources/floor2.png") || !txtFloorRed.loadFromFile("resources/floor_red.png") || !txtFloorGreen.loadFromFile("resources/floor_green.png"))
+    if(!txtFloor.loadFromFile("resources/floor.png") || !txtFloorRed.loadFromFile("resources/floor_red.png") || !txtFloorGreen.loadFromFile("resources/floor_green.png"))
     {
         throw std::runtime_error("Cannot load texture floor.jpg");
     }
