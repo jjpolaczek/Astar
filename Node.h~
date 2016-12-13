@@ -48,8 +48,7 @@ class Node
     //parameters for node display//
     //Note: Text will draw only if color != NONE//
     int color;
-    int gCost; // odległość od startu
-
-    int hCost; // odległość od startu + funkcja heurystyczna
+    int gCost; // move cost
+    int hCost; // heuristics
 };
 #endif

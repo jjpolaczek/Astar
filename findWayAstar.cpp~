@@ -30,12 +30,7 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 		display.Draw();	//Rysuj stan planszy
 		currentNode->setColor(2);
 		if(currentNode == goalNode)	// Jeśli dotarliśmy do celu zwróć przebytą drogę
-		{
-			std::vector<Node*> path = reconstructPath(cameFrom,currentNode);
-			for( auto i = path.begin(); i != path.end(); i++ )
-				(*i)->setColor(3);
-			return ;
-		}
+			return ;// reconstructPath(cameFrom,currentNode);
 		openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());
 		closedSet.push_back(currentNode);
 		for (int i = 0; i < 4; i++)	//Dodaj sąsiadów do zbioru odkrytych
