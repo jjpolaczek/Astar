@@ -11,6 +11,10 @@ Maze::Maze(int n) : _width(n)
     for(int i = 0; i < n; ++i)
         _nodes[i] = new Node[n];
 
+    for(int i = 0; i < n; ++i)
+	for(int j = 0; j < n; ++j)
+		_nodes[i][j].setXY(i, j);
+
     //clear();
 	//for maze generator to work everything must be walled first
 }
