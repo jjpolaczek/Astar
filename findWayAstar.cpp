@@ -18,6 +18,8 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 	openSet.push_back(startNode);
 	startNode->setPriority(abs(startNode->getX()-goalNode->getX())+abs(startNode->getY()-goalNode->getY()));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
 	startNode->setPassedRoute(0);	//przypisz przebytą drogę
+    startNode->setColor(Node::BLUE);
+    goalNode->setColor(Node::BLUE);
     while(openSet.size()>0 && !display.IsExit())
 	{
 		currentNode = openSet[0];
@@ -29,6 +31,7 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 		}
 		display.Draw();	//Rysuj stan planszy
         currentNode->setColor(Node::RED);
+        startNode->setColor(Node::BLUE);
 		if(currentNode == goalNode)	// Jeśli dotarliśmy do celu zwróć przebytą drogę
 		{
 			std::vector<Node*> path = reconstructPath(cameFrom,currentNode);
