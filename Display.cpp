@@ -13,7 +13,7 @@ void Display::Init()
     }
 
 }
-void Display::Draw()
+Display::Input Display::Draw()
 {
     if(_window == nullptr)
         throw std::logic_error("Init() not called");
@@ -29,8 +29,12 @@ void Display::Draw()
      DrawWalls();
      DrawText();
     _window->display();
-
+    return PollEvent();
+}
+Display::Input Display::PollEvent()
+{
     sf::Event event;
+    Input retval = NONE;
     while (_window->pollEvent(event))
     {
         switch(event.type)
@@ -41,19 +45,24 @@ void Display::Draw()
             case sf::Event::KeyPressed:
             switch(event.key.code)
             {
-               // case sf::Keyboard::U:
-               // _test = WallUp;
-              //  break;
+               case sf::Keyboard::A:
+                    retval = AUTO;
+                break;
+                case sf::Keyboard::S:
+                     retval = STEP;
+                 break;
                 default:
                 break;
-
             }
             break;
         default:
             break;
         }
     }
+    return retval;
+
 }
+
 void Display::DrawTiles()
 {
     //sf::Sprite tileSprite();

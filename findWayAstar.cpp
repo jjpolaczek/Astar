@@ -1,11 +1,4 @@
-#include <cstdio>
-#include <vector>
-#include <map>
-
-#include "Display.h"
-#include "Maze.h"
 #include "findWayAstar.h"
-
 
 void findWayAstar(Node* startNode, Node* goalNode, Display display)
 {
@@ -14,6 +7,7 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 	std::map<Node*,Node*> cameFrom;
 	
 	Node* currentNode;
+    bool autoStep = false;
 	
 	openSet.push_back(startNode);
 	startNode->setPriority(abs(startNode->getX()-goalNode->getX())+abs(startNode->getY()-goalNode->getY()));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
@@ -29,7 +23,32 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 				currentNode = *i;
 			//printf("Wybierz kolejny node %d : %d\n",currentNode->getX(),currentNode->getY());
 		}
-		display.Draw();	//Rysuj stan planszy
+        //Perform input response//
+        Display::Input input = display.Draw();
+        if(input == Display::AUTO)
+            autoStep = !autoStep;
+        else if(input == Display::STEP)
+        {/* Do nothing cause we either are in auto mode or waiting for skip*/}
+        else
+        {
+            if(autoStep != true)
+            {
+                //Enter a loop waiting for step event / auto mode//
+                while(!display.IsExit())
+                {
+                    input = display.PollEvent();
+                    if(input == Display::STEP)
+                        break;
+                    else if(input == Display::AUTO)
+                    {
+                        autoStep = !autoStep;
+                        break;
+                    }
+
+                }
+            }
+        }
+
         currentNode->setColor(Node::RED);
         startNode->setColor(Node::BLUE);
 		if(currentNode == goalNode)	// Jeśli dotarliśmy do celu zwróć przebytą drogę

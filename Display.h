@@ -32,9 +32,14 @@ public:
     ~Display()
     {
     }
-
+    enum Input{
+        NONE,
+        STEP,
+        AUTO
+    };
     void Init();
-    void Draw();
+    Input Draw();
+    Input PollEvent();
     bool IsExit()
     {
         return  !_window->isOpen();
