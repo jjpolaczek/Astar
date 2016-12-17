@@ -18,7 +18,7 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 	openSet.push_back(startNode);
 	startNode->setPriority(abs(startNode->getX()-goalNode->getX())+abs(startNode->getY()-goalNode->getY()));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
 	startNode->setPassedRoute(0);	//przypisz przebytą drogę
-	while(openSet.size()>0)
+    while(openSet.size()>0 && !display.IsExit())
 	{
 		currentNode = openSet[0];
 		for( auto i = openSet.begin(); i != openSet.end(); i++ )//weź najlepszy ze zbioru odkrytych nieodwiedzonych
@@ -28,12 +28,12 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 			//printf("Wybierz kolejny node %d : %d\n",currentNode->getX(),currentNode->getY());
 		}
 		display.Draw();	//Rysuj stan planszy
-		currentNode->setColor(2);
+        currentNode->setColor(Node::RED);
 		if(currentNode == goalNode)	// Jeśli dotarliśmy do celu zwróć przebytą drogę
 		{
 			std::vector<Node*> path = reconstructPath(cameFrom,currentNode);
 			for( auto i = path.begin(); i != path.end(); i++ )
-				(*i)->setColor(3);
+                (*i)->setColor(Node::BLUE);
 			return ;
 		}
 		openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());
@@ -46,8 +46,8 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 			if (!(std::find(openSet.begin(), openSet.end(),currentNode->next[i])!=openSet.end()) && currentNode->next[i])
 			{
 				openSet.push_back(currentNode->next[i]);
-				currentNode->next[i]->setPriority((abs(currentNode->next[i]->getX()-goalNode->getX())+abs(currentNode->next[i]->getY()-goalNode->getY())) + currentNode->getPassedRoute());	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
-				currentNode->next[i]->setPassedRoute(currentNode->getPassedRoute()+1);	//przypisz przebytą drogę
+                currentNode->next[i]->setPriority((abs(currentNode->next[i]->getX()-goalNode->getX())+abs(currentNode->next[i]->getY()-goalNode->getY())) + (currentNode->getPassedRoute() + 1));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
+                currentNode->next[i]->setPassedRoute(currentNode->getPassedRoute()+1);	//przypisz przebytą drogę
 				//printf("Dodaj sąsiada %d : %d\n",currentNode->getX(),currentNode->getY());
 			}
 			cameFrom[currentNode->next[i]]=currentNode;

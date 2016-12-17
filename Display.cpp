@@ -189,7 +189,7 @@ void Display::DrawText()
                 gCost.setPosition(GetCenter(i,j) - sf::Vector2f((float)TILE_SIZE / 4.0, (float)TILE_SIZE / 3.5));
                 oss.str(std::string());
                 //HCOST - top right corner//
-                oss<<tmp->hCost;
+                oss<<(tmp->totalCost - tmp->gCost);
                 hCost.setString(oss.str());
                 textRect = hCost.getLocalBounds();
                 hCost.setOrigin(textRect.left + textRect.width/2.0f,
@@ -197,7 +197,7 @@ void Display::DrawText()
                 hCost.setPosition(GetCenter(i,j) - sf::Vector2f((float)-TILE_SIZE / 4.0, (float)TILE_SIZE / 3.5));
                 oss.str(std::string());
                 //SUM//
-                oss<<(tmp->gCost + tmp->hCost);
+                oss<<(tmp->totalCost);
                 sum.setString(oss.str());
                 textRect = sum.getLocalBounds();
                 sum.setOrigin(textRect.left + textRect.width/2.0f,

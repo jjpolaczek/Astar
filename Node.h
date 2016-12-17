@@ -23,7 +23,7 @@ class Node
         next{nullptr,nullptr,nullptr,nullptr},
         color(0),
         gCost(0),
-        hCost(0),
+        totalCost(0),
 		priority(0),
 		passedRoute(0)
     {
@@ -37,7 +37,7 @@ class Node
 
 	void setXY(int x, int y){this->x = x; this->y = y;}
 	void setColor(int color){this->color = color;}
-	void setPriority(int priority){ this->priority = priority; this->hCost = priority; this->color = 1;}
+    void setPriority(int priority){ this->priority = priority; this->totalCost = priority; this->color = GREEN;}
 	void setPassedRoute(int passedRoute){ this->passedRoute = passedRoute;this->gCost = passedRoute; }
 	int getPriority(){ return this->priority; }
 	int getPassedRoute(){ return this->passedRoute; }
@@ -50,6 +50,6 @@ class Node
     int color;
     int gCost; // odległość od startu
 
-    int hCost; // odległość od startu + funkcja heurystyczna
+    int totalCost; // odległość od startu + funkcja heurystyczna
 };
 #endif
