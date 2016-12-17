@@ -3,7 +3,7 @@
 
 void Display::Init()
 {
-    _window = new sf::RenderWindow(sf::VideoMode(_maze->getSize() * TILE_SIZE, _maze->getSize() * TILE_SIZE), "A* maze");
+    _window = new sf::RenderWindow(sf::VideoMode(_maze->getSize() * TILE_SIZE, _maze->getSize() * TILE_SIZE), "A* maze - Select start and end tiles, press 'a' for auto mode and 's' for step");
     _window->setFramerateLimit(30);
     for(int i = 0; i < 4; ++i)
     {
