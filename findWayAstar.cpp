@@ -56,6 +56,7 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 			std::vector<Node*> path = reconstructPath(cameFrom,currentNode);
 			for( auto i = path.begin(); i != path.end(); i++ )
                 (*i)->setColor(Node::BLUE);
+            display.Draw();
 			return ;
 		}
 		openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());
@@ -74,7 +75,7 @@ void findWayAstar(Node* startNode, Node* goalNode, Display display)
 			}
 			cameFrom[currentNode->next[i]]=currentNode;
 		}
-	}
+    }
 
 }
 
