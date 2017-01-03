@@ -55,6 +55,14 @@ Display::Input Display::PollEvent()
                 break;
             }
             break;
+        case sf::Event::MouseButtonPressed:
+            if(event.mouseButton.button == sf::Mouse::Left)
+            {
+                _tilex = event.mouseButton.x / TILE_SIZE;
+                _tiley = event.mouseButton.y / TILE_SIZE;
+                retval = POINT;
+            }
+            break;
         default:
             break;
         }

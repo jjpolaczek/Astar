@@ -32,10 +32,37 @@ int main(int argc, char* argv[])	// parametry wywołania: rozmiar planszy, wejś
     Display display(&maze);
     display.Init();
     display.Draw();
+    //Get mouse input of start and stop tiles//
+    Display::Input input;
+    int pointsToSet = 2;
+    while(!display.IsExit() && pointsToSet != 0)
+    {
+        input = display.PollEvent();
+        if(input == Display::POINT)
+        {
+            int resx , resy;
+            display.GetLastClickedTile(resx, resy);
+            maze.getNode(resx,resy)->setColor(Node::BLUE);
+            display.Draw();
+            if(pointsToSet == 2)
+            {
+                startPointX = resx;
+                startPointY = resy;
+            }
+            if(pointsToSet == 1)
+            {
+                endPointX = resx;
+                endPointY = resy;
+            }
+            --pointsToSet;
+        }
+    }
+
+    //Display and perform A* search//
     findWayAstar(maze.getNode(startPointX,startPointY),maze.getNode(endPointX,endPointY),display);
     while (!display.IsExit())
     {
-        display.Draw();
+        display.PollEvent();
     }
 	return 0;
 }

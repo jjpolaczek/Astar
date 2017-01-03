@@ -26,7 +26,9 @@ class Display
 public:
 
     Display(Maze *maze):
-        _maze(maze)
+        _maze(maze),
+        _tilex(-1),
+        _tiley(-1)
     {
     }
     ~Display()
@@ -35,7 +37,8 @@ public:
     enum Input{
         NONE,
         STEP,
-        AUTO
+        AUTO,
+        POINT
     };
     void Init();
     Input Draw();
@@ -43,6 +46,11 @@ public:
     bool IsExit()
     {
         return  !_window->isOpen();
+    }
+    void GetLastClickedTile(int &x, int &y)
+    {
+        x =_tilex;
+        y = _tiley;
     }
 
 private:
@@ -58,6 +66,7 @@ private:
     sf::RenderWindow *_window;
     sf::RectangleShape _walls[4];
     Maze *_maze;
+    int _tilex, _tiley;
 
 };
 
