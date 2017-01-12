@@ -78,7 +78,7 @@ void Maze::generateMaze()
 	std::minstd_rand0 generator(seed);
 
 
-	struct State //current state of the node
+	struct State //current state of the node, to be set on stack
 	{
 		Side order[4]; //randomized order of directions
 		int x;
@@ -175,6 +175,7 @@ void Maze::randomizeOrder(Side* sides, std::minstd_rand0* generator)
 		sides[j] = temp;
 	}
 }
+
 /*
 * Checks if from the cell given at x, y it's possible to go the given direction (side)
 */
