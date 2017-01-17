@@ -3,6 +3,7 @@
 
 void Display::Init()
 {
+    //Initializes a window and sets precomputed shapes in memory//
     _window = new sf::RenderWindow(sf::VideoMode(_maze->getSize() * TILE_SIZE, _maze->getSize() * TILE_SIZE), "A* maze - Select start and end tiles, press 'a' for auto mode and 's' for step");
     _window->setFramerateLimit(30);
     for(int i = 0; i < 4; ++i)
@@ -17,7 +18,7 @@ Display::Input Display::Draw()
 {
     if(_window == nullptr)
         throw std::logic_error("Init() not called");
-
+    //Main drawing loop//
     sf::RectangleShape background(sf::Vector2f(_maze->getSize() * TILE_SIZE, _maze->getSize() * TILE_SIZE));
     background.setOrigin(sf::Vector2f(0.0,0.0));
 
@@ -73,7 +74,6 @@ Display::Input Display::PollEvent()
 
 void Display::DrawTiles()
 {
-    //sf::Sprite tileSprite();
     sf::RectangleShape tile(sf::Vector2f(TILE_SIZE,TILE_SIZE));
     sf::Texture txtFloor, txtFloorRed, txtFloorGreen, txtFloorBlue;
     if(!txtFloor.loadFromFile("resources/floor.png") || !txtFloorRed.loadFromFile("resources/floor_red.png")
@@ -83,8 +83,7 @@ void Display::DrawTiles()
     }
     tile.setTexture(&txtFloor);
     tile.setOrigin(sf::Vector2f((TILE_SIZE)/2.0, (TILE_SIZE)/2.0));
-    //background.setTextureRect(sf::IntRect(0,0,50000,50000));
-    //background.setTexture(&txtFloor);
+    //Draw all tiles individaully with appropriate texture//
     for(int i = 0; i < _maze->getSize(); ++i)
     {
         for(int j = 0; j < _maze->getSize(); ++j)
@@ -131,6 +130,7 @@ void Display::DrawWalls()
         _walls[i].setTexture(&txtWall);
         _walls[i].setTextureRect(sf::IntRect(10,10,500,500));
     }
+    //Draw required walls for each node separately (contains duplicate walls)//
     for(int i = 0; i < _maze->getSize(); ++i)
     {
         for(int j = 0; j < _maze->getSize(); ++j)
@@ -150,6 +150,7 @@ void Display::DrawWalls()
 }
 void Display::DrawGrid()
 {
+    //Draw grid separating the tiles//
     for(int i = 0; i < _maze->getSize(); ++i)
     {
         sf::Vertex linev[] =

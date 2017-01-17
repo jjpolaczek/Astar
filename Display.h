@@ -63,12 +63,16 @@ public:
     * Retreives the last event (button pressed, tile clicked)
     */
     Input PollEvent();
-    
+    /*
+    * Checks if the window was closed
+    */
     bool IsExit()
     {
         return  !_window->isOpen();
     }
-    
+    /*
+    * After POINT event the program may check last clicked tile saved in clas (coordinates)
+    */
     void GetLastClickedTile(int &x, int &y)
     {
         x = _tilex;
