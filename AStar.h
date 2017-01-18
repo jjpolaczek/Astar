@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdio>
 #include <vector>
+#include <algorithm>
 #include <map>
 
 #include "Maze.h"

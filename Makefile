@@ -1,7 +1,7 @@
 all: release
 debug:
-	g++ main.cpp Display.cpp Maze.cpp findWayAstar.cpp AStar.cpp AlghoritmWraper.cpp -o app.o -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -g -O0
+	g++ main.cpp Display.cpp Maze.cpp findWayAstar.cpp AStar.cpp AlgorithmWrapper.cpp -o app.o -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -g -O0
 release:
-	g++ main.cpp Display.cpp Maze.cpp findWayAstar.cpp AStar.cpp AlghoritmWraper.cpp -o app.o -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -O3
+	g++ main.cpp Display.cpp Maze.cpp findWayAstar.cpp AStar.cpp AlgorithmWrapper.cpp -o app.o -lsfml-graphics -lsfml-window -lsfml-system -std=c++11 -O3
 clean:
 	rm *.o
