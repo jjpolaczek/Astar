@@ -1,12 +1,8 @@
-class AStar
-{
-	std::vector<Node*> closedSet;	//zbiór odwiedzonych
-	std::vector<Node*> openSet;		//zbiór otkrytych nieodwiedzonych
-	std::map<Node*,Node*> cameFrom;
-	Node* currentNode;
-	Node* startNode;
-	Node* goalNode;
-	public AStar(Node* startNode, Node* goalNode)
+#include "AStar.h"
+
+
+
+	AStar::AStar(Node* startNode, Node* goalNode)
 	{
 		this->startNode = startNode;
 		//this->goalNode = goalNode;
@@ -15,7 +11,7 @@ class AStar
 		startNode->setPassedRoute(0);	//przypisz przebytą drogę
 	}
 		
-	Node* step()
+	Node* AStar::step()
 	{
 		currentNode = openSet[0];
 		for( auto i = openSet.begin(); i != openSet.end(); i++ )//weź najlepszy ze zbioru odkrytych nieodwiedzonych
@@ -42,7 +38,7 @@ class AStar
 		return currentNode;
 	}
 
-	std::vector<Node*> reconstructPath(std::map<Node*,Node*> cameFrom, Node* currentNode)	//funkcja odtwarzająca przebytą drogę
+	std::vector<Node*> AStar::reconstructPath(std::map<Node*,Node*> cameFrom, Node* currentNode)	//funkcja odtwarzająca przebytą drogę
 	{
 		if (cameFrom.find(currentNode)!=cameFrom.end())
 		{
@@ -54,14 +50,13 @@ class AStar
 			return p;
 	}
 	
-	Node* getCurrentNode()
+	Node* AStar::getCurrentNode()
 	{
 		return currentNode;
 	}
 	
-	std::map<Node*,Node*> getCameFrom()
+	std::map<Node*,Node*> AStar::getCameFrom()
 	{
 		return cameFrom;
 	}
 
-}
