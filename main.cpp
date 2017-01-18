@@ -2,10 +2,13 @@
 
 #include "Display.h"
 #include "Maze.h"
-#include "findWayAstar.h"
+#include "AlgorithmWrapper.h"
+
+//#include "findWayAstar.h"
 
 int main(int argc, char* argv[])	// parametry wywołania: rozmiar planszy, wejście.x, wejście.y, wyjście.x, wyjście.y
 {
+	AlgorithmWrapper* aWrap;
     int mazeSize = 15;
     int startPointX = 5;
     int startPointY = 5;
@@ -59,7 +62,9 @@ int main(int argc, char* argv[])	// parametry wywołania: rozmiar planszy, wejś
     }
 
     //Display and perform A* search//
-    findWayAstar(maze.getNode(startPointX,startPointY),maze.getNode(endPointX,endPointY),display);
+    //findWayAstar(maze.getNode(startPointX,startPointY),maze.getNode(endPointX,endPointY),display);
+	aWrap = new AlgorithmWrapper(maze.getNode(startPointX,startPointY),maze.getNode(endPointX,endPointY),&display);
+	aWrap->continousSimulation();
     while (!display.IsExit())
     {
         display.PollEvent();
