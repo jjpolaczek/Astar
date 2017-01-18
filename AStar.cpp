@@ -2,65 +2,65 @@
 
 
 
-	AStar::AStar(Node* startNode, Node* goalNode)
-	{
-		this->startNode = startNode;
-		this->goalNode = goalNode;
-		openSet.push_back(startNode);
-		startNode->setPriority(abs(startNode->getX()-goalNode->getX())+abs(startNode->getY()-goalNode->getY()));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
-		startNode->setPassedRoute(0);	//przypisz przebytą drogę
-		
-	}
-		
-	Node* AStar::step()
-	{
-		currentNode = openSet[0];
-		for( auto i = openSet.begin(); i != openSet.end(); i++ )//weź najlepszy ze zbioru odkrytych nieodwiedzonych
-		{
-			if(currentNode->getPriority()>(*i)->getPriority())
-			currentNode = *i;
-		}
+AStar::AStar(Node* startNode, Node* goalNode)
+{
+    this->startNode = startNode;
+    this->goalNode = goalNode;
+    openSet.push_back(startNode);
+    startNode->setPriority(abs(startNode->getX()-goalNode->getX())+abs(startNode->getY()-goalNode->getY()));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
+    startNode->setPassedRoute(0);	//przypisz przebytą drogę
 
-		openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());
-		closedSet.push_back(currentNode);
-		for (int i = 0; i < 4; i++)	//Dodaj sąsiadów do zbioru odkrytych
-		{
-			if(currentNode->next[i] == nullptr)//jeżeli ściana: pomiń
-				continue;
-			
-			if (std::find(closedSet.begin(), closedSet.end(),currentNode->next[i])!=closedSet.end())
-				continue;
+}
 
-			if (!(std::find(openSet.begin(), openSet.end(),currentNode->next[i])!=openSet.end()) && currentNode->next[i])
-			{
-				openSet.push_back(currentNode->next[i]);
-                currentNode->next[i]->setPriority((abs(currentNode->next[i]->getX()- goalNode->getX()) + abs(currentNode->next[i]->getY() - goalNode->getY() )) + (currentNode->getPassedRoute() + 1));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
-                currentNode->next[i]->setPassedRoute(currentNode->getPassedRoute()+1);	//przypisz przebytą drogę
-			}
-			cameFrom[currentNode->next[i]]=currentNode;
-		}
-		return currentNode;
-	}
+Node* AStar::step()
+{
+    currentNode = openSet[0];
+    for( auto i = openSet.begin(); i != openSet.end(); i++ )//weź najlepszy ze zbioru odkrytych nieodwiedzonych
+    {
+        if(currentNode->getPriority()>(*i)->getPriority())
+            currentNode = *i;
+    }
 
-	std::vector<Node*> AStar::reconstructPath(std::map<Node*,Node*> cameFrom, Node* currentNode)	//funkcja odtwarzająca przebytą drogę
-	{
-		if (cameFrom.find(currentNode)!=cameFrom.end())
-		{
-			std::vector<Node*> p = reconstructPath(cameFrom,cameFrom[currentNode]);
-			p.push_back(currentNode);
-			return p;
-		} 
-		std::vector<Node*> p;
-			return p;
-	}
-	
-	Node* AStar::getCurrentNode()
-	{
-		return currentNode;
-	}
-	
-	std::map<Node*,Node*> AStar::getCameFrom()
-	{
-		return cameFrom;
-	}
+    openSet.erase(std::remove(openSet.begin(), openSet.end(), currentNode), openSet.end());
+    closedSet.push_back(currentNode);
+    for (int i = 0; i < 4; i++)	//Dodaj sąsiadów do zbioru odkrytych
+    {
+        if(currentNode->next[i] == nullptr)//jeżeli ściana: pomiń
+            continue;
+
+        if (std::find(closedSet.begin(), closedSet.end(),currentNode->next[i])!=closedSet.end())
+            continue;
+
+        if (!(std::find(openSet.begin(), openSet.end(),currentNode->next[i])!=openSet.end()) && currentNode->next[i])
+        {
+            openSet.push_back(currentNode->next[i]);
+            currentNode->next[i]->setPriority((abs(currentNode->next[i]->getX()- goalNode->getX()) + abs(currentNode->next[i]->getY() - goalNode->getY() )) + (currentNode->getPassedRoute() + 1));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
+            currentNode->next[i]->setPassedRoute(currentNode->getPassedRoute()+1);	//przypisz przebytą drogę
+        }
+        cameFrom[currentNode->next[i]]=currentNode;
+    }
+    return currentNode;
+}
+
+std::vector<Node*> AStar::reconstructPath(std::map<Node*,Node*> cameFrom, Node* currentNode)	//funkcja odtwarzająca przebytą drogę
+{
+    if (cameFrom.find(currentNode)!=cameFrom.end())
+    {
+        std::vector<Node*> p = reconstructPath(cameFrom,cameFrom[currentNode]);
+        p.push_back(currentNode);
+        return p;
+    }
+    std::vector<Node*> p;
+    return p;
+}
+
+Node* AStar::getCurrentNode()
+{
+    return currentNode;
+}
+
+std::map<Node*,Node*> AStar::getCameFrom()
+{
+    return cameFrom;
+}
 
