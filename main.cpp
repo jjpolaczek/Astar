@@ -64,7 +64,7 @@ int main(int argc, char* argv[])	// parametry wywołania: rozmiar planszy, wejś
     //Display and perform A* search//
     //findWayAstar(maze.getNode(startPointX,startPointY),maze.getNode(endPointX,endPointY),display);
 	aWrap = new AlgorithmWrapper(maze.getNode(startPointX,startPointY),maze.getNode(endPointX,endPointY),&display);
-	aWrap->continousSimulation();
+	aWrap->steppedSimulation();
     while (!display.IsExit())
     {
         display.PollEvent();

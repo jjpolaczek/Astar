@@ -13,8 +13,8 @@
 	
 	void AlgorithmWrapper::steppedSimulation()
 	{
-		bool autoStep = true;
-		Display::Input input;
+		bool autoStep = false;
+		Display::Input input = display->Draw();
 		while(aStar->step() != goalNode)
 		{
 			aStar->getCurrentNode()->setColor(Node::RED);
@@ -34,6 +34,7 @@
 
                 }
 		}
+			display->Draw();
 		}
 		drawPassedRoute();
 	}
@@ -42,7 +43,8 @@
 	{
 		while(aStar->step() != goalNode)
 		{
-			aStar->getCurrentNode()->setColor(Node::RED);	
+			aStar->getCurrentNode()->setColor(Node::RED);
+			display->Draw();
 		}
 		drawPassedRoute();
 	}
