@@ -2,9 +2,10 @@
 
 
 
-	AlghoritmWraper::AlghoritmWraper(Node* startNode, Node* goalNode)
+	AlghoritmWraper::AlghoritmWraper(Node* startNode, Node* goalNode, Display display)
 	{
 		this->goalNode = goalNode;
+		this->display = display;
 		aStar = new AStar(startNode, goalNode);
 		startNode->setColor(Node::BLUE);
 		goalNode->setColor(Node::BLUE);

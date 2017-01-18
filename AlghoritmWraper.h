@@ -12,9 +12,10 @@ class AlghoritmWraper
 	private:
 		AStar aStar;
 		Node* goalNode;
-		void drawPassedRoute()	//funkcja odtwarzająca i rysująca na planszy znalezioną drogę
+		Display display;
+		void drawPassedRoute();	//funkcja odtwarzająca i rysująca na planszy znalezioną drogę
 	public:
-		AlghoritmWraper(Node* startNode, Node* goalNode);
+		AlghoritmWraper(Node* startNode, Node* goalNode, Display display);
 		void steppedSymulation();	//symulacja krokowa
 		void continousSymulation();	//symulacja ciągła
 };
