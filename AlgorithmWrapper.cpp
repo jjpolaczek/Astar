@@ -13,10 +13,27 @@
 	
 	void AlgorithmWrapper::steppedSimulation()
 	{
+		bool autoStep = true;
+		Display::Input input;
 		while(aStar->step() != goalNode)
 		{
 			aStar->getCurrentNode()->setColor(Node::RED);
-			//waitForNextStep();
+			//pentla oczekuje na kolejny krok w algorytmie
+		if(autoStep != true)
+        {
+			while(!display->IsExit())
+                {
+                    input = display->PollEvent();
+                    if(input == Display::STEP)
+                        break;
+                    else if(input == Display::AUTO)
+                    {
+                        autoStep = !autoStep;
+                        break;
+                    }
+
+                }
+		}
 		}
 		drawPassedRoute();
 	}

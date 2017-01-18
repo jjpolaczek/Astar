@@ -9,6 +9,7 @@
 		openSet.push_back(startNode);
 		startNode->setPriority(abs(startNode->getX()-goalNode->getX())+abs(startNode->getY()-goalNode->getY()));	//przypisz przewidywaną długość drogi przechodzącej przez dany punkt
 		startNode->setPassedRoute(0);	//przypisz przebytą drogę
+		
 	}
 		
 	Node* AStar::step()
@@ -24,6 +25,8 @@
 		closedSet.push_back(currentNode);
 		for (int i = 0; i < 4; i++)	//Dodaj sąsiadów do zbioru odkrytych
 		{
+			if(currentNode->next[i] == nullptr)//jeżeli ściana: pomiń
+				continue;
 			if (std::find(closedSet.begin(), closedSet.end(),currentNode->next[i])!=closedSet.end())
 				continue;
 
