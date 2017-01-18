@@ -4,7 +4,7 @@
 #include "Maze.h"
 #include "AlgorithmWrapper.h"
 
-//#include "findWayAstar.h"
+
 
 int main(int argc, char* argv[])	// parametry wywołania: rozmiar planszy, wejście.x, wejście.y, wyjście.x, wyjście.y
 {
